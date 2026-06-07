@@ -1,0 +1,78 @@
+# ===========================
+# OS Generated Files
+# ===========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===========================
+# IDE / Editor
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===========================
+# Python
+# ===========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ===========================
+# Python Virtual Environments
+# ===========================
+.env
+.env.local
+
+# ===========================
+# Jupyter Notebook
+# ===========================
+.ipynb_checkpoints/
+
+# ===========================
+# PyTorch / ML Artifacts
+# ===========================
+*.pt
+*.pth
+*.onnx
+
+# ===========================
+# Model Training Outputs
+# ===========================
+model/saved_models/**
+!model/saved_models/
+!model/saved_models/*/
+!model/saved_models/**/.gitkeep
+model/data/**
+!model/data/
+!model/data/.gitkeep
+model/codebert-temp-checkpoints/
+model/logs/
+
+# ===========================
+# HuggingFace Cache
+# ===========================
+.cache/
+
+# ===========================
+# Docker
+# ===========================
+*.log
+
+
+# ===========================
+# Misc
+# ===========================
+project_context.md
+*.bak
+*.tmp

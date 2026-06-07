@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AICodeTrace</title>
+
+  <!-- Fonts: Inter untuk UI, JetBrains Mono untuk kode -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <header class="app-header">
+    <h1 class="app-title">AICodeTrace</h1>
+    <p class="app-desc">Web analisis kode Manusia atau AI</p>
+  </header>
+
+  <main>
+
+    <!-- Input Card -->
+    <div class="card">
+
+      <!-- Bagian atas: tab toggle + pilih model -->
+      <div class="card-top">
+        <div class="tab-group" role="tablist">
+          <button class="tab active" id="tab-paste"
+                  role="tab" aria-selected="true" aria-controls="panel-paste">
+            <i class="ti ti-code" aria-hidden="true"></i>
+            Paste code
+          </button>
+          <button class="tab" id="tab-upload"
+                  role="tab" aria-selected="false" aria-controls="panel-upload">
+            <i class="ti ti-upload" aria-hidden="true"></i>
+            Upload file
+          </button>
+        </div>
+
+        <select class="model-select" id="model-select" aria-label="Pilih model analisis">
+          <option value="codebert">CodeBERT</option>
+          <option value="logistictfidf">Logistic Regression + TF-IDF</option>
+          <option value="logisticwordembedding">Logistic Regression + Word Embedding</option>
+        </select>
+      </div>
+
+      <!-- Panel: Paste code (aktif secara default) -->
+      <div id="panel-paste" role="tabpanel" aria-labelledby="tab-paste">
+        <textarea
+          id="code-input"
+          class="code-textarea"
+          placeholder="Paste kode Python atau C++ di sini..."
+          aria-label="Input kode"
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <!-- Panel: Upload file (tersembunyi secara default) -->
+      <div id="panel-upload" class="upload-panel hidden" role="tabpanel" aria-labelledby="tab-upload">
+
+        <!-- Area drag & drop -->
+        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Klik atau drag file ke area ini">
+          <i class="ti ti-file-upload drop-icon" aria-hidden="true"></i>
+          <p class="drop-title">Drag &amp; drop file di sini</p>
+          <p class="drop-sub">Mendukung .py dan .cpp</p>
+          <button type="button" class="btn-browse" id="btn-browse">Pilih file</button>
+        </div>
+
+        <!-- Info file setelah dipilih -->
+        <div class="file-info hidden" id="file-info">
+          <i class="ti ti-file-code" aria-hidden="true"></i>
+          <span class="file-name" id="file-name">-</span>
+          <button type="button" class="btn-remove" id="btn-remove" aria-label="Hapus file yang dipilih">
+            <i class="ti ti-x" style="font-size: 15px;" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <!-- Input file asli (dipanggil secara programatik) -->
+        <input type="file" id="file-input" accept=".py,.cpp" hidden aria-hidden="true">
+      </div>
+
+      <!-- Bagian bawah: meta info + tombol Analyze -->
+      <div class="card-bottom">
+        <span class="code-meta" id="code-meta" aria-live="polite"></span>
+        <button class="btn-analyze" id="btn-analyze">Analyze</button>
+      </div>
+    </div>
+
+    <!-- Result Card (tersembunyi sampai ada hasil analisis) -->
+    <div class="card hidden" id="result-card" aria-live="polite" aria-label="Hasil analisis">
+
+      <!-- Verdict -->
+      <div class="result-header">
+        <div class="verdict-icon" id="verdict-icon" aria-hidden="true">
+          <i id="verdict-icon-i" class="ti ti-user-check"></i>
+        </div>
+        <div>
+          <p class="verdict-label">Verdict</p>
+          <h2 class="verdict-text" id="verdict-text">-</h2>
+        </div>
+      </div>
+
+      <!-- Confidence bar -->
+      <div class="confidence-section">
+        <div class="confidence-header">
+          <span class="confidence-label">Confidence</span>
+          <span class="confidence-value" id="confidence-value">-</span>
+        </div>
+        <div class="confidence-track" aria-hidden="true">
+          <div class="confidence-fill" id="confidence-fill"></div>
+        </div>
+      </div>
+
+      <!-- Meta: model, durasi, waktu -->
+      <div class="result-meta">
+        <span>
+          <i class="ti ti-cpu" aria-hidden="true"></i>
+          <span id="meta-model">-</span>
+        </span>
+        <span>
+          <i class="ti ti-clock" aria-hidden="true"></i>
+          <span id="meta-time">-</span>
+        </span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Script -->
+<script src="script.js"></script>
+
+</body>
+</html>

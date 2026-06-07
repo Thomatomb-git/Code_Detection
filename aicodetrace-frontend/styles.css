@@ -1,0 +1,477 @@
+/* ─────────────────────────────────────────
+   CSS Variables
+───────────────────────────────────────── */
+:root {
+  --font-ui:   'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Background */
+  --bg:       #F9FAFB;
+  --surface:  #FFFFFF;
+
+  /* Border */
+  --border:   #E5E7EB;
+
+  /* Teks */
+  --text-1:   #111827; /* primary */
+  --text-2:   #6B7280; /* secondary */
+  --text-3:   #9CA3AF; /* muted/placeholder */
+
+  /* Tombol utama */
+  --btn-bg:   #111827;
+  --btn-fg:   #FFFFFF;
+
+  /* Verdict: Human (hijau) */
+  --human:    #16A34A;
+  --human-bg: #F0FDF4;
+
+  /* Verdict: AI (amber) */
+  --ai:       #D97706;
+  --ai-bg:    #FFFBEB;
+
+  /* Border radius */
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+
+  /* Shadow kartu */
+  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* ─────────────────────────────────────────
+   Reset & Base
+───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { cursor: pointer; }
+
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--text-1);
+  outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────
+   Layout
+───────────────────────────────────────── */
+.page {
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+/* ─────────────────────────────────────────
+   Header
+───────────────────────────────────────── */
+.app-header {
+  margin-bottom: 1.75rem;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+.app-desc {
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: var(--text-2);
+}
+
+/* ─────────────────────────────────────────
+   Kartu (Card)
+───────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.card + .card {
+  margin-top: 1rem;
+}
+
+/* ─────────────────────────────────────────
+   Input Card — Bagian atas (tab + model)
+───────────────────────────────────────── */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Tab toggle */
+.tab-group {
+  display: inline-flex;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 3px;
+  gap: 2px;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--r-md) - 2px);
+  transition: background 150ms, color 150ms;
+}
+
+.tab:hover { color: var(--text-1); }
+
+.tab.active {
+  background: var(--surface);
+  color: var(--text-1);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.tab i { font-size: 14px; }
+
+/* Dropdown pilih model */
+.model-select {
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 5px 10px;
+  height: 32px;
+}
+
+/* ─────────────────────────────────────────
+   Panel: Paste Code
+───────────────────────────────────────── */
+.code-textarea {
+  display: block;
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  color: var(--text-1);
+  background: var(--surface);
+  border: none;
+  resize: vertical;
+  outline: none;
+  tab-size: 2;
+}
+
+.code-textarea::placeholder {
+  color: var(--text-3);
+  font-style: italic;
+}
+
+/* ─────────────────────────────────────────
+   Panel: Upload File
+───────────────────────────────────────── */
+.upload-panel {
+  padding: 1rem 1.25rem;
+}
+
+/* Area drag & drop */
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 160px;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  transition: border-color 150ms, background 150ms;
+  cursor: pointer;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+  border-color: var(--text-1);
+  background: #F3F4F6;
+}
+
+.dropzone i.drop-icon {
+  font-size: 30px;
+  color: var(--text-3);
+}
+
+.drop-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.drop-sub {
+  font-size: 0.75rem;
+  color: var(--text-3);
+}
+
+.btn-browse {
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 6px 14px;
+  margin-top: 4px;
+  transition: background 150ms, border-color 150ms;
+}
+
+.btn-browse:hover {
+  background: var(--bg);
+  border-color: var(--text-2);
+}
+
+/* File yang sudah dipilih */
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  margin-top: 10px;
+}
+
+.file-info i { font-size: 18px; color: var(--text-2); }
+
+.file-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-1);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-remove {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  background: none;
+  border: none;
+  border-radius: var(--r-sm);
+  color: var(--text-3);
+  transition: color 150ms, background 150ms;
+}
+
+.btn-remove:hover {
+  color: var(--text-1);
+  background: var(--border);
+}
+
+/* ─────────────────────────────────────────
+   Input Card — Footer (meta + tombol)
+───────────────────────────────────────── */
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.code-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: var(--text-2);
+  min-height: 20px;
+}
+
+.code-meta i { font-size: 13px; }
+
+/* Tombol Analyze */
+.btn-analyze {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: none;
+  border-radius: var(--r-md);
+  padding: 8px 20px;
+  transition: opacity 150ms;
+}
+
+.btn-analyze:hover    { opacity: 0.85; }
+.btn-analyze:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Spinner loading */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─────────────────────────────────────────
+   Result Card
+───────────────────────────────────────── */
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+/* Ikon bulat verdict */
+.verdict-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verdict-icon i { font-size: 24px; }
+.verdict-icon.human { background: var(--human-bg); color: var(--human); }
+.verdict-icon.ai    { background: var(--ai-bg);    color: var(--ai);    }
+
+.verdict-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 3px;
+}
+
+.verdict-text {
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.verdict-text.human { color: var(--human); }
+.verdict-text.ai    { color: var(--ai);    }
+
+/* Confidence bar */
+.confidence-section {
+  padding: 0 1.25rem 1rem;
+}
+
+.confidence-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.confidence-label {
+  font-size: 0.8125rem;
+  color: var(--text-2);
+}
+
+.confidence-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-1);
+}
+
+.confidence-track {
+  height: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 3px;
+  transition: width 500ms ease-out;
+}
+
+.confidence-fill.human { background: var(--human); }
+.confidence-fill.ai    { background: var(--ai);    }
+
+/* Meta info (model, durasi, waktu) */
+.result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 0.75rem;
+  color: var(--text-2);
+}
+
+.result-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.result-meta i { font-size: 13px; }
+
+/* ─────────────────────────────────────────
+   Utility
+───────────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ─────────────────────────────────────────
+   Responsive (layar kecil)
+───────────────────────────────────────── */
+@media (max-width: 480px) {
+  body         { padding: 1.25rem 0.75rem 3rem; }
+  .app-title   { font-size: 1.125rem; }
+  .card-top    { flex-direction: column; align-items: flex-start; }
+  .btn-analyze { width: 100%; justify-content: center; }
+}
+
+/* Hormati preferensi reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .spinner         { animation: none; opacity: 0.7; }
+  .confidence-fill { transition: none; }
+}
