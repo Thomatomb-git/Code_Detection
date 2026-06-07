@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
   <!-- Header -->
   <header class="app-header">
     <h1 class="app-title">AICodeTrace</h1>
-    <p class="app-desc">Web analisis kode Manusia atau AI</p>
+    <p class="app-desc">Web code analysis: Human or AI</p>
   </header>
 
   <main>
@@ -46,7 +46,7 @@
           </button>
         </div>
 
-        <select class="model-select" id="model-select" aria-label="Pilih model analisis">
+        <select class="model-select" id="model-select" aria-label="Select analysis model">
           <option value="codebert">CodeBERT</option>
           <option value="logistictfidf">Logistic Regression + TF-IDF</option>
         </select>
@@ -57,8 +57,8 @@
         <textarea
           id="code-input"
           class="code-textarea"
-          placeholder="Paste kode Python di sini..."
-          aria-label="Input kode"
+          placeholder="Paste your Python code here..."
+          aria-label="Code input"
           spellcheck="false"
         ></textarea>
       </div>
@@ -67,18 +67,18 @@
       <div id="panel-upload" class="upload-panel hidden" role="tabpanel" aria-labelledby="tab-upload">
 
         <!-- Area drag & drop -->
-        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Klik atau drag file ke area ini">
+        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Click or drag file here">
           <i class="ti ti-file-upload drop-icon" aria-hidden="true"></i>
-          <p class="drop-title">Drag &amp; drop file di sini</p>
-          <p class="drop-sub">Hanya mendukung file .py</p>
-          <button type="button" class="btn-browse" id="btn-browse">Pilih file</button>
+          <p class="drop-title">Drag &amp; drop file here</p>
+          <p class="drop-sub">Only supports .py files</p>
+          <button type="button" class="btn-browse" id="btn-browse">Choose file</button>
         </div>
 
         <!-- Info file setelah dipilih -->
         <div class="file-info hidden" id="file-info">
           <i class="ti ti-file-code" aria-hidden="true"></i>
           <span class="file-name" id="file-name">-</span>
-          <button type="button" class="btn-remove" id="btn-remove" aria-label="Hapus file yang dipilih">
+          <button type="button" class="btn-remove" id="btn-remove" aria-label="Remove selected file">
             <i class="ti ti-x" style="font-size: 15px;" aria-hidden="true"></i>
           </button>
         </div>

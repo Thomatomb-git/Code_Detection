@@ -84,8 +84,8 @@ function updateMeta() {
   const parts = [];
 
   if (lang)  parts.push(`<i class="ti ${iconClass}" aria-hidden="true"></i>${lang}`);
-  if (lines) parts.push(`${lines} baris`);
-  if (chars) parts.push(`${chars} karakter`);
+  if (lines) parts.push(`${lines} lines`);
+  if (chars) parts.push(`${chars} characters`);
 
   elCodeMeta.innerHTML = parts.join(' &nbsp;·&nbsp; ');
 }
@@ -100,7 +100,7 @@ function handleFile(file) {
 
   const ext = file.name.split('.').pop().toLowerCase();
   if (ext !== 'py') {
-    alert('Hanya file .py yang didukung.');
+    alert('Only .py files are supported.');
     return;
   }
 
@@ -216,8 +216,8 @@ elBtnAnalyze.addEventListener('click', async () => {
 
   if (!code) {
     const msg = activeTab === 'paste'
-      ? 'Masukkan kode terlebih dahulu.'
-      : 'Pilih file terlebih dahulu.';
+      ? 'Please paste code first.'
+      : 'Please choose a file first.';
     alert(msg);
     return;
   }
@@ -248,17 +248,17 @@ function detectLanguageJs(code) {
 async function analyze(code) {
   const startTime = Date.now();
 
-  // Validasi sebelum mengirim ke API
+  // Validation before sending to API
   if (code.length < 10) {
     resetButton();
-    alert('Kode terlalu pendek untuk dianalisis. Minimal 10 karakter.');
+    alert('Code is too short to analyze. Minimum 10 characters.');
     return;
   }
 
-  // Validasi apakah kode terdeteksi sebagai C++
+  // Validation if code is detected as C++
   if (detectLanguageJs(code) === 'cpp') {
     resetButton();
-    alert('Kode terdeteksi sebagai C++. Aplikasi ini hanya mendukung bahasa Python.');
+    alert('Code detected as C++. This application only supports Python.');
     return;
   }
 
@@ -293,7 +293,7 @@ async function analyze(code) {
 
   } catch (err) {
     resetButton();
-    alert(`Gagal menganalisis kode.\nDetail: ${err.message}`);
+    alert(`Failed to analyze code.\nDetail: ${err.message}`);
     return;
   }
 
