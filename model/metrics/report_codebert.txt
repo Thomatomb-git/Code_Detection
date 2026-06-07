@@ -1,0 +1,9 @@
+=== HASIL EVALUASI MODEL (CodeBERT) ===
+              precision    recall  f1-score   support
+
+   Human (0)       0.80      0.81      0.80       951
+      AI (1)       0.67      0.65      0.66       566
+
+    accuracy                           0.75      1517
+   macro avg       0.73      0.73      0.73      1517
+weighted avg       0.75      0.75      0.75      1517

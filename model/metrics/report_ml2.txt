@@ -1,0 +1,9 @@
+=== HASIL EVALUASI MODEL (TF-IDF + Logistic) ===
+              precision    recall  f1-score   support
+
+   Human (0)       0.69      0.93      0.79       951
+      AI (1)       0.71      0.30      0.42       566
+
+    accuracy                           0.69      1517
+   macro avg       0.70      0.61      0.61      1517
+weighted avg       0.70      0.69      0.65      1517
