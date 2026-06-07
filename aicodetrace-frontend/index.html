@@ -49,7 +49,6 @@
         <select class="model-select" id="model-select" aria-label="Pilih model analisis">
           <option value="codebert">CodeBERT</option>
           <option value="logistictfidf">Logistic Regression + TF-IDF</option>
-          <option value="logisticwordembedding">Logistic Regression + Word Embedding</option>
         </select>
       </div>
 
@@ -58,7 +57,7 @@
         <textarea
           id="code-input"
           class="code-textarea"
-          placeholder="Paste kode Python atau C++ di sini..."
+          placeholder="Paste kode Python di sini..."
           aria-label="Input kode"
           spellcheck="false"
         ></textarea>
@@ -71,7 +70,7 @@
         <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Klik atau drag file ke area ini">
           <i class="ti ti-file-upload drop-icon" aria-hidden="true"></i>
           <p class="drop-title">Drag &amp; drop file di sini</p>
-          <p class="drop-sub">Mendukung .py dan .cpp</p>
+          <p class="drop-sub">Hanya mendukung file .py</p>
           <button type="button" class="btn-browse" id="btn-browse">Pilih file</button>
         </div>
 
@@ -85,7 +84,7 @@
         </div>
 
         <!-- Input file asli (dipanggil secara programatik) -->
-        <input type="file" id="file-input" accept=".py,.cpp" hidden aria-hidden="true">
+        <input type="file" id="file-input" accept=".py" hidden aria-hidden="true">
       </div>
 
       <!-- Bagian bawah: meta info + tombol Analyze -->

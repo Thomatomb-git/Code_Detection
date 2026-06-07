@@ -4,7 +4,7 @@ from pydantic import BaseModel
 class PredictRequest(BaseModel):
     """Schema untuk request POST /predict."""
     code: str
-    model: str  # "codebert" | "logistictfidf" | "logisticwordembedding"
+    model: str  # "codebert" | "logistictfidf"
 
 
 class PredictResponse(BaseModel):

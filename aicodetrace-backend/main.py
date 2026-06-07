@@ -21,7 +21,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from models import PredictRequest, PredictResponse
 from services.model_loader import load_all_models
-from services.predictor import predict_codebert, predict_ml2
+from services.predictor import predict_codebert, predict_ml2, detect_language
 
 # ============================================================
 # Logging
@@ -76,7 +76,7 @@ _MODEL_HANDLERS = {
 }
 
 # Model names yang valid (untuk pesan error)
-_VALID_MODELS = ["codebert", "logistictfidf", "logisticwordembedding"]
+_VALID_MODELS = ["codebert", "logistictfidf"]
 
 
 @app.get("/")
@@ -105,12 +105,11 @@ async def predict(req: PredictRequest):
                    f"Pilihan: {', '.join(_VALID_MODELS)}",
         )
 
-    # --- ML1 (Word Embedding) — tidak tersedia ---
-    if model_key == "logisticwordembedding":
+    # --- Validasi: pastikan bahasa kode adalah Python ---
+    if detect_language(code) == "cpp":
         raise HTTPException(
             status_code=400,
-            detail="Model 'Logistic Regression + Word Embedding' tidak tersedia. "
-                   "Silakan gunakan model lain.",
+            detail="Kode terdeteksi sebagai C++. API ini hanya mendukung analisis kode Python.",
         )
 
     # --- Jalankan prediksi ---

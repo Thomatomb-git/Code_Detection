@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 # Meta Features Extraction (untuk ML2)
 # ============================================================
 
-def _detect_language(code: str) -> str:
+def detect_language(code: str) -> str:
     """
     Auto-detect bahasa kode berdasarkan pola.
     Return 'python' | 'cpp'.  Default: 'python'.
@@ -46,8 +46,8 @@ def _extract_meta_features(code: str) -> list[float]:
     Hitung 5 meta features: [lines, code_lines, comments, functions, blank_lines].
     Auto-detect Python/C++ lalu hitung sesuai bahasa.
     """
-    lang = _detect_language(code)
-    raw_lines = code.split("\n")
+    lang = detect_language(code)
+    raw_lines = code.splitlines()
 
     total_lines = len(raw_lines)
     blank_lines = sum(1 for line in raw_lines if line.strip() == "")

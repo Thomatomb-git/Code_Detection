@@ -60,12 +60,10 @@ elTabUpload.addEventListener('click', () => switchTab('upload'));
 ============================================================ */
 function detectLanguage(code, filename) {
   if (filename) {
-    if (filename.endsWith('.py'))                              return 'Python';
-    if (filename.endsWith('.cpp') || filename.endsWith('.cc')) return 'C++';
+    if (filename.endsWith('.py')) return 'Python';
   }
   // Deteksi sederhana dari isi kode
   if (code.includes('def ') || code.includes('import ') || code.includes('print(')) return 'Python';
-  if (code.includes('#include') || code.includes('cout') || code.includes('int main')) return 'C++';
   return null;
 }
 
@@ -101,8 +99,8 @@ function handleFile(file) {
   if (!file) return;
 
   const ext = file.name.split('.').pop().toLowerCase();
-  if (!['py', 'cpp', 'cc'].includes(ext)) {
-    alert('Hanya file .py dan .cpp yang didukung.');
+  if (ext !== 'py') {
+    alert('Hanya file .py yang didukung.');
     return;
   }
 
@@ -237,6 +235,16 @@ elBtnAnalyze.addEventListener('click', async () => {
 });
 
 const API_URL = 'https://thomatomb-aicodetrace-backend.hf.space/predict';
+
+function detectLanguageJs(code) {
+  const cppPatterns = ["#include", "cout <<", "int main", "std::", "using namespace", "cin >>"];
+  let cppScore = 0;
+  cppPatterns.forEach(p => {
+    if (code.includes(p)) cppScore++;
+  });
+  return cppScore > 0 ? 'cpp' : 'python';
+}
+
 async function analyze(code) {
   const startTime = Date.now();
 
@@ -244,6 +252,13 @@ async function analyze(code) {
   if (code.length < 10) {
     resetButton();
     alert('Kode terlalu pendek untuk dianalisis. Minimal 10 karakter.');
+    return;
+  }
+
+  // Validasi apakah kode terdeteksi sebagai C++
+  if (detectLanguageJs(code) === 'cpp') {
+    resetButton();
+    alert('Kode terdeteksi sebagai C++. Aplikasi ini hanya mendukung bahasa Python.');
     return;
   }
 
@@ -261,21 +276,24 @@ async function analyze(code) {
 
     if (!response.ok) {
       // Server merespons dengan status error (4xx / 5xx)
-      const errorText = await response.text();
-      throw new Error(`Server error ${response.status}: ${errorText}`);
+      let errorMsg = `Server error ${response.status}`;
+      try {
+        const errJson = await response.json();
+        if (errJson && errJson.detail) {
+          errorMsg = errJson.detail;
+        }
+      } catch (e) {
+        const text = await response.text().catch(() => '');
+        if (text) errorMsg = `${errorMsg}: ${text}`;
+      }
+      throw new Error(errorMsg);
     }
 
     data = await response.json();
 
   } catch (err) {
     resetButton();
-    // alert(`Gagal menghubungi API.\n${err.message}`);
-    showResult({
-      verdict:    'human',
-      confidence: 100,
-      model:      'test',
-      durationMs: 0.1,
-    });
+    alert(`Gagal menganalisis kode.\nDetail: ${err.message}`);
     return;
   }
 
