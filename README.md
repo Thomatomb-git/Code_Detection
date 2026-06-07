@@ -6,7 +6,7 @@ Direktori ini berisi skrip pelatihan (*training scripts*) untuk mendeteksi apaka
 
 ## 🔗 Tautan Akses Web & API
 * **Backend API (Live Hugging Face Space)**: [https://thomatomb-aicodetrace-backend.hf.space](https://thomatomb-aicodetrace-backend.hf.space)
-* **Frontend Web Application**: (Silakan akses tautan publik web aplikasi Anda di sini)
+* **Frontend Web Application**: [https://code-detection-8sml.onrender.com](https://code-detection-8sml.onrender.com)
 
 ---
 
